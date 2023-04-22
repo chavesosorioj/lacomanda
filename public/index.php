@@ -62,10 +62,10 @@ $app->get('/', function (Request $request, Response $response) {
    $group->get('/traerporcomanda/{codigo_comanda}', \MesaController::class . ':TraerPorCodComanda');
 //      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
-    $group->put('/modificar/{id}', \MesaController::class . ':ModificarUno');
+    $group->put('/modificar', \MesaController::class . ':ModificarUno');
 //      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
-   $group->delete('/borrar/{id}', \MesaController::class . ':BorrarUno');
+   $group->delete('/borrar/{codigo_mesa}', \MesaController::class . ':BorrarUno');
 //      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
     
 

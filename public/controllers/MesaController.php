@@ -70,34 +70,50 @@ class MesaController extends Mesa implements IApiUsable{
           ->withHeader('Content-Type', 'application/json');
     }
 
-    //borra en verdad un id de empleado porque pudee haber mas, sino habia que borrar por area
-	public function BorrarUno($request, $response, $args){
-        $id = $args['id'];
-        Mesa::obtenerMesa($id);
-        $payload = json_encode(array("mensaje" => "Mesa borrada con exito"));
-
-        $response->getBody()->write($payload);
-        return $response->withHeader('Content-Type', 'application/json');
-    }
-
-    //Modifica el estado de la mesa
+        //Modifica el estado de la mesa
 	public function ModificarUno($request, $response, $args){
         $parametros = $request->getParsedBody();
-        $id = $args['id'];
-        $aux = Mesa::obtenerMesa($id);
+        $codcom = Mesa::obtenerMesaCodigoComanda($parametros['codigo_comanda']);
 
-        if(count($aux)>0){
-            $aux = $parametros['estado'];
-            Mesa::modificarMesa($aux, $id);
-            $payload = json_encode(array("mensaje" => "Estado de la mesa actualizado con exito"));
+        if(!isset($parametros['codigo_mesa']) && !isset($parametros['estado'])){
+           
+            $payload = json_encode(array("mensaje" => "Datos invalidos"));
+        }else if(empty($codcom) || (Mesa::mesaEstado($parametros['estado']) == 'Error')){
+
+            $payload = json_encode(array("mensaje" => "No hay ninguna mesa con ese codigo de comanda o estado incorrecto. verificar"));
         }
-        else {
-            $payload = json_encode(array("mensaje" => "No hay ninguna mesa con con ese id"));
+        else{
+
+            Mesa::modificarMesa($parametros['codigo_comanda'], Mesa::mesaEstado($parametros['estado']) );
+            $payload = json_encode(array("mensaje" => "Estado de mesa modificado exitosamente"));
         }
        
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+
+	public function BorrarUno($request, $response, $args){
+        $codigo_mesa = $args['codigo_mesa'];
+        $mesa = Mesa::obtenerMesaCodigo($codigo_mesa);
+
+        if(!isset($codigo_mesa)){
+           
+            $payload = json_encode(array("mensaje" => "Datos invalidos"));
+        }else if(empty($mesa)){
+
+            $payload = json_encode(array("mensaje" => "No hay ninguna mesa con ese codigo. verificar"));
+        }
+        else{
+            Mesa::borrarMesa($codigo_mesa);
+            $payload = json_encode(array("mensaje" => "Mesa borrada con exito"));
+        }
+
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+
 }
 
 

@@ -60,9 +60,8 @@ class Mesa{
     public static function obtenerMesaCodigo($codigo_mesa)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, id_cliente $codigo_comanda, codigo_mesa,
-                                                                tiempo, estado, mozo, fecha,
-                                                             foto, comentario 
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT codigo_comanda, codigo_mesa,
+                                                        estado, mozo, foto,id_puntuacion, fecha
                                                         FROM mesas WHERE codigo_mesa = :codigo_mesa");
         $consulta->bindValue(':codigo_mesa', $codigo_mesa, PDO::PARAM_STR);
         $consulta->execute();
@@ -96,25 +95,21 @@ class Mesa{
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Mesa');
     }
 
-
-    // se da de baja una mesa?
-    public static function borrarMesa($id)
+    public static function borrarMesa($codigo_mesa)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET fecha = :fecha_baja 
-                                                        WHERE id = :id");
-        $fecha = "01-01-1970";
-        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
-        $consulta->bindValue(':fecha_baja',$fecha, PDO::PARAM_STR);
+        $consulta = $objAccesoDato->prepararConsulta("DELETE FROM mesas WHERE codigo_mesa = :codigo_mesa");
+        $consulta->bindValue(':codigo_mesa', $codigo_mesa, PDO::PARAM_STR);
         $consulta->execute();
     }
 
-    public static function modificarMesa()
+    public static function modificarMesa($codigo_comanda, $estado)
     {
-        $objAccesoDato = AccesoDatos::obtenerInstancia($estado, $id);
-        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET estado = :estado WHERE id = :id");
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET estado = :estado 
+                                                    WHERE codigo_comanda = :codigo_comanda");
         $consulta->bindValue(':estado', $estado, PDO::PARAM_STR);
-        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->bindValue(':codigo_comanda', $codigo_comanda, PDO::PARAM_STR);
         $consulta->execute();
     }
     public static function mesaEstado($aux){
