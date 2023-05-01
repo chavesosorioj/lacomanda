@@ -19,6 +19,10 @@ class Mesa{
     //     return $this $codigo_comanda;
     // }
 
+    public function GetEstado(){
+        return $this->estado;
+    }
+
     public function crearMesa()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();

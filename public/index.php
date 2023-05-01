@@ -139,16 +139,16 @@ $app->get('/', function (Request $request, Response $response) {
   
 // });
 
-// // Encuestas
-// $app->group('/encuestas', function (RouteCollectorProxy $group) {
+// Encuestas
+$app->group('/encuesta', function (RouteCollectorProxy $group) {
 
-//   $group->post('/AltaEncuesta', \EncuestaController::class . ':CargarUno');
-//   $group->get('/TraerTodos', \EncuestaController::class . ':TraerTodos');
-//   $group->get('/TraerEncuesta/{id}', \EncuestaController::class . ':TraerUno');
-
+  $group->post('/alta', \EncuestaController::class . ':CargarUno');
+  $group->get('/traertodas', \EncuestaController::class . ':TraerTodos');
+  $group->get('/traeruna/{codigo_comanda}', \EncuestaController::class . ':TraerUno');
+  $group->put('/modificar', \EncuestaController::class . ':ModificarUno');
 
   
-// });
+});
 
  //Peticiones Socios
 
