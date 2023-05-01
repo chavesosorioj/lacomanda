@@ -1,6 +1,7 @@
 <?php
 
 require_once './models/Mesa.php';
+require_once './archivos/archivos.php';
 require_once './models/Comanda.php';
 require_once './models/Usuario.php';
 require_once './interfaces/IApiUsable.php';
@@ -30,10 +31,12 @@ class MesaController extends Mesa implements IApiUsable{
             $mesa->codigo_mesa = $parametros['codigo_mesa'];
             $mesa->estado =  Mesa::mesaEstado($parametros['estado']);  
             $mesa->mozo = Usuario::ObtenerUnUsuarioPorPuesto( $parametros['mozo']);
-            $mesa->foto = $parametros['foto'];
+            $mesa->foto = Archivos::NombreFoto($_FILES['foto']);
             $mesa->id_puntuacion = -1; 
             $mesa->fecha = $auxFecha->format('d-m-Y'); 
-            //var_dump($mesa);
+            
+            Archivos::GuardarFoto($_FILES['foto'], $mesa);
+            var_dump($mesa);
             $mesa->crearMesa();
     
             $payload = json_encode(array("mensaje" => "Mesa creada con exito"));

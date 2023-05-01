@@ -1,7 +1,7 @@
 <?php
 
 //////////////////////////
-// las mesas tienen los siguientes estados (las mandaria por postman)
+// las mesas tienen los siguientes estados 
 // cliente esperando pedido, cliente comiendo, cliente pagando, cerrada
 ////////////////////////
 class Mesa{
@@ -21,6 +21,14 @@ class Mesa{
 
     public function GetEstado(){
         return $this->estado;
+    }
+
+    public function GetMesa(){
+        return $this->codigo_mesa;
+    }
+
+    public function GetComanda(){
+        return $this->codigo_comanda;
     }
 
     public function crearMesa()
