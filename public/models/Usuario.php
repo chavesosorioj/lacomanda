@@ -19,6 +19,9 @@ class Usuario{
     public function GetIdPuesto(){
         return $this->idPuesto;
     }
+    public function GetPuesto(){
+        return $this->puesto;
+    }
 
     public function GetIdUsuario(){
         return $this->idUsuario;
@@ -149,8 +152,6 @@ class Usuario{
         }
     }
 
-    // para que me podria servir que devuelva un numero? quizas con str de estado esat bien y valida que exista
-    // si devuelve un numero quizas pueda validarlo dodne ponga la func, algo tiene que revolver, o quizas con true esta bien
     public function Estado($aux){
         switch($aux)
         {
@@ -182,10 +183,11 @@ class Usuario{
         $lista = self::obtenerTodos();
         $array = array();
         foreach($lista as $aux){
-            if($aux->GetIdPuesto()==$puesto){
+            if($aux->GetPuesto()==$puesto){
                 array_push($array, $aux);
             }
         }
+        //  var_dump($array);
         $random = random_int(1, count($array));
         if($random == count($array))
             return $array[$random-1]->GetIdUsuario();

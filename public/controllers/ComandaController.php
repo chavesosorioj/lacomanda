@@ -10,30 +10,34 @@ class ComandaController extends Comanda implements IApiUsable{
     public function CargarUno($request, $response, $args){
         
         $parametros = $request->getParsedBody();
-        $auxCom = Comanda::obtenerComandaCodigo($parametros['codigo_comanda']); 
+        $codigo = Comanda::GenerarCodigo();
+        echo "el codigo es ".$codigo;
 
-        if(!isset($parametros['codigo_comanda']) && !isset($parametros['id_mesa'])
+        $auxCom = Comanda::obtenerComandaCodigo($codigo); 
+
+        if(!isset($parametros['id_mesa'])
             && !isset($parametros['nombre_cliente']) && !isset($parametros['importe'])
             && !isset($parametros['estado']) && !isset($parametros['demora'])){
             
             $payload = json_encode(array("mensaje" => "Datos Invalidos"));
-        }else if(!empty($auxCom)){ // chequear
-            var_dump('Lo que hay en auxCom',$auxCom);
+        }else if(!empty($auxCom)){ 
+            // var_dump('Lo que hay en auxCom',$auxCom);
             $payload = json_encode(array("mensaje" => "La comanda ya existe"));
         }
         else{
             $com = new Comanda();
             $com->id_mesa = $parametros['id_mesa'];
             $com->nombre_cliente = $parametros['nombre_cliente'];
-            $com->codigo_comanda = $parametros['codigo_comanda'];
+            // $com->codigo_comanda = $parametros['codigo_comanda'];
+            $com->codigo_comanda = $codigo;
             $com->importe = $parametros['importe'];
             $com->estado = $parametros['estado'];
             $com->demora = $parametros['demora'];
             $com->baja = 1; // ver si se lo saco
-            $com->crearComanda();
+            //$com->crearComanda();
 
             //$datos = array("id" => $emp->id, "tipo_usuario" => $emp->sector); // esto no se para que lo quiero
-            $payload = json_encode(array("mensaje" => "Comanda creada con exito", "Codigo para el cliente: " => $parametros['codigo_comanda']));
+            $payload = json_encode(array("mensaje" => "Comanda creada con exito", "Codigo para el cliente: " => $codigo));
         }
 
         $response->getBody()->write($payload);

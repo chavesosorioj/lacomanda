@@ -2,6 +2,8 @@
 
 require_once './models/Orden.php';
 require_once './models/menu.php';
+require_once './models/Comanda.php';
+require_once './models/Usuario.php';
 require_once './interfaces/IApiUsable.php';
 require_once './middlewares/UsuariosMiddleware.php';
 
@@ -13,31 +15,26 @@ class OrdenController extends Orden implements IApiUsable{
 
         if(isset($parametros['codigo_comanda']) && isset($parametros['pedido'])){
             
-            // CAMBIAR ESTO POR FUNCION QUE LLAME A COMANDA Y VEA SI EXISTE
-            $aux = Orden::obtenerOrdenComanda($parametros['codigo_comanda']); 
-            $auxId = Orden::obtenerOrden(20); 
+            $comanda = Comanda::obtenerComandaCodigo($parametros['codigo_comanda']);
 
-            //////////////////////////
             $auxPedido = Menu::verificarMenu($parametros['pedido']);
-            echo $auxPedido;
-            if(empty($auxId)){       
+            //echo $auxPedido;
+            if($auxPedido != 'Error' && !empty($comanda)){       
                 $ord = new Orden();
                 $ord->codigo_comanda = $parametros['codigo_comanda'];
                 $ord->pedido = $parametros['pedido'];
                 $ord->area = Menu::puestoMenu($parametros['pedido']); 
+                $ord->idUsuario = Usuario::ObtenerUnUsuarioPorPuesto($ord->area);
                 $ord->demora = Menu::demoraMenu($parametros['pedido']);
                 $ord->estado = "ingresado";
+                // var_dump($ord);
                 $ord->crearOrden();
                 
-
                 $payload = json_encode(array("mensaje" => "Orden creada con exito"));
                 
             }
-            else if($auxPedido == 'Error'){
-                $payload = json_encode(array("mensaje" => "El pedido no esta en el menu"));
-            }
             else{
-                $payload = json_encode(array("mensaje" => "La orden ya existe"));
+                $payload = json_encode(array("mensaje" => "El pedido no esta en el menu o la comanda no existe. Verifique."));
             }
 
         }else {
@@ -76,6 +73,25 @@ class OrdenController extends Orden implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function TraerIngresadasPrep($request, $response, $args){
+        $lista = Orden::obtenerTodos();
+        Orden::ListaPorUsuario($lista);
+        $payload = json_encode(array("mensaje" => "Orden ingresadas y en preparacion"));
+
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+
+    public function TraerListo($request, $response, $args){
+        $lista = Orden::obtenerTodos();
+        Orden::ListaServir($lista);
+        $payload = json_encode(array("mensaje" => "Orden listas para servir"));
+
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
 
     public function ModificarUno($request, $response, $args){
         $parametros = $request->getParsedBody();
@@ -106,7 +122,8 @@ class OrdenController extends Orden implements IApiUsable{
     public function ModificarEstado($request, $response, $args){
         $parametros = $request->getParsedBody();
         $ord = Orden::obtenerOrden($parametros['id']);
-        if(!isset($aux) && !isset($parametros['estado'])){
+        // var_dump($ord);
+        if(!isset($parametros['id']) && !isset($parametros['estado'])){
             
             $payload = json_encode(array("mensaje" => "Datos invalidos"));
 
@@ -148,6 +165,25 @@ class OrdenController extends Orden implements IApiUsable{
 
         $payload = json_encode('La demora es de '.$demora.' minutos');
         $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerOrdenPorUsuario($request, $response, $args){
+        $idUsuario = $args['idUsuario'];
+         $aux = Usuario::obtenerUsuarioId($idUsuario);
+        $lista = Orden::obtenerOrdenIdUsuario($idUsuario);
+
+        if(empty($aux)){
+            $payload = json_encode(array("mensaje" => "No hay ningun usuario con ese id."));
+        }else if(empty($lista))
+            $payload = json_encode(array("mensaje" => "El usuario no tiene ninguna orden asignada."));
+        else{
+            $payload = json_encode(array("mensaje" => "Lista de orden por usuario"));
+            Orden::ListaPorUsuario($lista);
+            
+            
+        }
+                $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
 }

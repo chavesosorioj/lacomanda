@@ -23,6 +23,9 @@ class Encuesta{
     public function GetPCocinero(){
         return $this->p_cocinero;
     }
+    public function GetComentario(){
+        return $this->comentario;
+    }
 
     public function crearEncuesta()
     {
@@ -101,6 +104,22 @@ class Encuesta{
                                                         WHERE id = :id");
         $consulta->bindValue(':id', $id, PDO::PARAM_INT);
         $consulta->execute();
+    }
+
+    public static function mejoresComentarios(){
+
+        $lista = Encuesta::ObtenerTodos();
+        $auxMejores =[];
+        foreach($lista as $enc){
+            if($enc->GetPCocinero()>= 7 && $enc->GetPMesa()>=7 &&
+                $enc->GetPMozo()>= 7 && $enc->GetPRestaurant()>= 7){
+                    array_push($auxMejores, $enc);
+                    echo "------"."\n";
+                    echo $enc->GetComentario()."\n";
+
+            }
+        }
+        return $auxMejores;
     }
 }
 ?>

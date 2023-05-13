@@ -55,6 +55,7 @@ $app->get('/', function (Request $request, Response $response) {
     //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
    $group->get('/traertodas', \MesaController::class . ':TraerTodos');
+   //   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
   
    $group->get('/traeruna/{id}', \MesaController::class . ':TraerUno');
    //   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
@@ -67,6 +68,9 @@ $app->get('/', function (Request $request, Response $response) {
 
    $group->delete('/borrar/{codigo_mesa}', \MesaController::class . ':BorrarUno');
 //      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/masusada', \MesaController::class . ':TraerMasUsada');
+//   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
     
 
 });
@@ -110,7 +114,13 @@ $app->get('/', function (Request $request, Response $response) {
 //            ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
      $group->get('/traeruno/{id}', \OrdenController::class . ':TraerUno');
-// //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+ //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+     
+     $group->get('/traeringresadasprep', \OrdenController::class . ':TraerIngresadasPrep');
+ //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/traerlistasservir', \OrdenController::class . ':TraerListo');
+ //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoMozo');
 
      $group->put('/modificarpedido', \OrdenController::class . ':ModificarUno');
 // //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
@@ -124,33 +134,28 @@ $app->get('/', function (Request $request, Response $response) {
 //    // $group->get('/GenerarPDF/', \VentaController::class . ':DescargarPDF');
 
     $group->get('/totaldemora/{codigo_comanda}', \OrdenController::class . ':TotalDemora');
+
+    $group->get('/traerporusuario/{idUsuario}', \OrdenController::class . ':TraerOrdenPorUsuario'); 
+    // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
+
+    
     
  });
-
-//  // peticiones Mozo
-
-//  $app->group('/mozo', function (RouteCollectorProxy $group) {
-
-//   $group->get('/menu', \EmpleadosController::class . ':TraerMenu');
-//   //->add(\UsuariosMiddleware::class . ':VerificaAccesoCocinero');
-
-
-
-  
-// });
 
 // Encuestas
 $app->group('/encuesta', function (RouteCollectorProxy $group) {
 
   $group->post('/alta', \EncuestaController::class . ':CargarUno');
   $group->get('/traertodas', \EncuestaController::class . ':TraerTodos');
+
   $group->get('/traeruna/{codigo_comanda}', \EncuestaController::class . ':TraerUno');
   $group->put('/modificar', \EncuestaController::class . ':ModificarUno');
 
+  $group->get('/traermejorescomentarios', \EncuestaController::class . ':TraerMejores');
+  //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
   
 });
-
- //Peticiones Socios
 
  $app->run();
 

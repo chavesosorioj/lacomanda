@@ -141,5 +141,27 @@ class Mesa{
         }
     }
 
+    public static function MasUsada(){
+        $lista = Mesa::obtenerTodos();
+        $contador = array();
+        $maximo = 0;
+        $codigo_maximo = '';
+        foreach ($lista as $mesa) {
+            $codigo = $mesa->GetMesa();
+            if (!isset($contador[$codigo])) {
+                $contador[$codigo] = 0;
+            }
+            $contador[$codigo]++;
+        }
+
+        foreach ($contador as $codigo => $cantidad) {
+            if ($cantidad > $maximo) {
+                $maximo = $cantidad;
+                $codigo_maximo = $codigo;
+            }
+        }
+
+        echo 'La mesa con código ' . $codigo_maximo . ' aparece ' . $maximo . ' veces en la lista.';
+    }
 }
 ?>

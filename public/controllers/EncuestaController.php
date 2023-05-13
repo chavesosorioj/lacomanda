@@ -1,6 +1,7 @@
 <?php
 
 require_once './models/Encuesta.php';
+require_once './models/Comanda.php';
 require_once './models/Mesa.php';
 require_once './interfaces/IApiUsable.php';
 require_once './middlewares/UsuariosMiddleware.php';
@@ -11,14 +12,15 @@ class EncuestaController extends Encuesta implements IApiUsable{
         
         $parametros = $request->getParsedBody();
         $aux = Encuesta::ObtenerEncuestaPorComanda($parametros['codigo_comanda']);
+        $comanda = Comanda::obtenerComandaCodigo($parametros['codigo_comanda']);
 
         if(!isset($parametros['codigo_mesa']) && !isset($parametros['codigo_comanda'])){
 
                 $payload = json_encode(array("mensaje" => "Datos invalidos"));
             
-        }else if(!empty($aux)){
+        }else if(!empty($aux) || empty($comanda)){
             
-            $payload = json_encode(array("mensaje" => "La encuesta para ese codigo de comanda ya existe"));
+            $payload = json_encode(array("mensaje" => "La encuesta para ese codigo de comanda ya existe o la comanda no existe. Verifique"));
         }else{
 
             $enc = new Encuesta();
@@ -65,6 +67,15 @@ class EncuestaController extends Encuesta implements IApiUsable{
     public function TraerTodos($request, $response, $args){
         $lista = Encuesta::ObtenerTodos();
         $payload = json_encode(array("lista encuestas" => $lista));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerMejores($request, $response, $args){
+        Encuesta::mejoresComentarios();
+        $payload = json_encode(array("Mejores comentarios"));
 
         $response->getBody()->write($payload);
         return $response

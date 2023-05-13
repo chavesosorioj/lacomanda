@@ -8,6 +8,7 @@
 class Orden{
 
     public $id;
+    public $idUsuario;
     public $codigo_comanda;
     public $pedido;
     public $area;
@@ -30,9 +31,10 @@ class Orden{
     public function crearOrden()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO ordenes (codigo_comanda, pedido, 
+        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO ordenes (idUsuario, codigo_comanda, pedido, 
                                                                     area, demora, estado)
-                                                    VALUES (:codigo_comanda, :pedido, :area, :demora, :estado)");
+                                                    VALUES (:idUsuario, :codigo_comanda, :pedido, :area, :demora, :estado)");
+        $consulta->bindValue(':IdUsuario', $this->idUsuario, PDO::PARAM_INT);
         $consulta->bindValue(':codigo_comanda', $this->codigo_comanda, PDO::PARAM_STR);
         $consulta->bindValue(':pedido', $this->pedido, PDO::PARAM_STR);
         $consulta->bindValue(':area', $this->area, PDO::PARAM_STR);
@@ -53,12 +55,23 @@ class Orden{
     public static function obtenerOrden($id)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, codigo_comanda, pedido, area, demora, estado
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, idUsuario, codigo_comanda, pedido, area, demora, estado
                                                         FROM ordenes WHERE id = :id");
         $consulta->bindValue(':id', $id, PDO::PARAM_INT);
         $consulta->execute();
 
         return $consulta->fetchObject('Orden');
+    }
+
+    public static function obtenerOrdenIdUsuario($idUsuario)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, idUsuario, codigo_comanda, pedido, area, demora, estado
+                                                        FROM ordenes WHERE idUsuario = :idUsuario");
+        $consulta->bindValue(':idUsuario', $idUsuario, PDO::PARAM_INT);
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
     }
 
     public static function obtenerOrdenComanda($codigo_comanda)
@@ -121,6 +134,34 @@ class Orden{
         }
 
         return $total;
+    }
+
+    public static function ListaPorUsuario($lista){
+
+        foreach($lista as $or){
+            if($or->GetEstado() != 'listo para servir'){
+                $or->mostrarLista();
+            }
+        }
+    }
+
+    public static function ListaServir($lista){
+
+        foreach($lista as $or){
+            if($or->GetEstado() == 'listo para servir'){
+                $or->mostrarLista();
+            }
+        }
+    }
+
+    public function mostrarLista(){
+        echo "------"."\n";
+        echo "Id orden -".$this->id."\n";
+        echo "Codigo comanda - ".$this->codigo_comanda."\n";
+        echo "Estado - ".$this->estado."\n";
+        echo "Pedido - ".$this->pedido."\n";
+        echo "Demora - ".$this->demora."\n";
+
     }
 }
 
