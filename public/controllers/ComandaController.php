@@ -34,7 +34,7 @@ class ComandaController extends Comanda implements IApiUsable{
             $com->estado = $parametros['estado'];
             $com->demora = $parametros['demora'];
             $com->baja = 1; // ver si se lo saco
-            //$com->crearComanda();
+            $com->crearComanda();
 
             //$datos = array("id" => $emp->id, "tipo_usuario" => $emp->sector); // esto no se para que lo quiero
             $payload = json_encode(array("mensaje" => "Comanda creada con exito", "Codigo para el cliente: " => $codigo));
