@@ -1,0 +1,1734 @@
+{
+	"info": {
+		"_postman_id": "15e19f77-72df-41db-9062-b6400d6ad6dd",
+		"name": "La comanda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9753674"
+	},
+	"item": [
+		{
+			"name": "usuario abm",
+			"item": [
+				{
+					"name": "Alta usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "idUsuario",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "roberto",
+									"type": "text"
+								},
+								{
+									"key": "mail",
+									"value": "roberto@utn.com",
+									"type": "text"
+								},
+								{
+									"key": "clave",
+									"value": "5252",
+									"type": "text"
+								},
+								{
+									"key": "puesto",
+									"value": "Cervecero",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "Disponible",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/alta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"alta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUsuario",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "mail",
+									"value": "tina@utn.com",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "5",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/modificar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"modificar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Socio usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "mail",
+									"value": "juli@utn.com",
+									"type": "text"
+								},
+								{
+									"key": "clave",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6666/public/socio/LogIn",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6666",
+							"path": [
+								"public",
+								"socio",
+								"LogIn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/borrar/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"borrar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/traeruno/edu@utn.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"traeruno",
+								"edu@utn.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer usuario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6666/public/socio/TraerUnSocio/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6666",
+							"path": [
+								"public",
+								"socio",
+								"TraerUnSocio",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer todos usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/traertodos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"traertodos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios LogIn",
+			"item": [
+				{
+					"name": "usuario LogIn Bartender",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "idUsuario",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "ringo",
+									"type": "text"
+								},
+								{
+									"key": "puesto",
+									"value": "Bartender",
+									"type": "text"
+								},
+								{
+									"key": "sector",
+									"value": "mozo",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "luna",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuario LogIn Cocinero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "idUsuario",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "esteban",
+									"type": "text"
+								},
+								{
+									"key": "puesto",
+									"value": "Cocinero",
+									"type": "text"
+								},
+								{
+									"key": "sector",
+									"value": "mozo",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "luna",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuario LogIn Cervecero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "idUsuario",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "sergio",
+									"type": "text"
+								},
+								{
+									"key": "puesto",
+									"value": "Cervecero",
+									"type": "text"
+								},
+								{
+									"key": "sector",
+									"value": "mozo",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "luna",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuario LogIn Mozo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "idUsuario",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "draco",
+									"type": "text"
+								},
+								{
+									"key": "puesto",
+									"value": "Mozo",
+									"type": "text"
+								},
+								{
+									"key": "sector",
+									"value": "mozo",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "luna",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuario LogIn Socio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "idUsuario",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "tina",
+									"type": "text"
+								},
+								{
+									"key": "puesto",
+									"value": "Socio",
+									"type": "text"
+								},
+								{
+									"key": "sector",
+									"value": "mozo",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "luna",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/usuario/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"usuario",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mesas abm",
+			"item": [
+				{
+					"name": "Alta mesa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo_comanda",
+									"value": "dddd4444",
+									"type": "text"
+								},
+								{
+									"key": "codigo_mesa",
+									"value": "mesa04",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "mozo",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "foto",
+									"type": "file",
+									"src": "/Users/julianachavesosorio/Documents/UTN/mesa-restaurante.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/mesa/alta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"mesa",
+								"alta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar  mesas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/mesa/traertodas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"mesa",
+								"traertodas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer  mesa por comanda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/mesa/traerporcomanda/bbbb2222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"mesa",
+								"traerporcomanda",
+								"bbbb2222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer  una",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/mesa/traeruna/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"mesa",
+								"traeruna",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar  mesa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "codigo_comanda",
+									"value": "bbbb2222",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/mesa/modificar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"mesa",
+								"modificar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar  mesa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/mesa/borrar/mesa04",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"mesa",
+								"borrar",
+								"mesa04"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comanda abm",
+			"item": [
+				{
+					"name": "Alta comanda",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo_comanda",
+									"value": "bbbb2222",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id_mesa",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "nombre_cliente",
+									"value": "pepe",
+									"type": "text"
+								},
+								{
+									"key": "importe",
+									"value": "800",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "ingresada",
+									"type": "text"
+								},
+								{
+									"key": "demora",
+									"value": "40",
+									"type": "text"
+								},
+								{
+									"key": "baja",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "codigo_comanda",
+									"value": "aaa1234",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/comanda/alta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"comanda",
+								"alta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar  comandas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/comanda/traertodas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"comanda",
+								"traertodas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer  una (codigo)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/comanda/traeruna/bbbb2222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"comanda",
+								"traeruna",
+								"bbbb2222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/comanda/traerporid/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"comanda",
+								"traerporid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar  comanda",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "codigo_comanda",
+									"value": "bbbb2222",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "codigo",
+									"value": "rrr555",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/comanda/modificar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"comanda",
+								"modificar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar  comanda",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/comanda/borrar/bbbb2222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"comanda",
+								"borrar",
+								"bbbb2222"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orden abm",
+			"item": [
+				{
+					"name": "Alta orden distintos pedidos",
+					"item": [
+						{
+							"name": "Alta orden Milanesa",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "codigo_comanda",
+											"value": "aaaa1111",
+											"type": "text"
+										},
+										{
+											"key": "pedido",
+											"value": "Milanesa a caballo",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/app/laComanda/public/orden/alta",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"app",
+										"laComanda",
+										"public",
+										"orden",
+										"alta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alta orden Cerveza",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "codigo_comanda",
+											"value": "cccc3333",
+											"type": "text"
+										},
+										{
+											"key": "pedido",
+											"value": "Cerveza",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/app/laComanda/public/orden/alta",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"app",
+										"laComanda",
+										"public",
+										"orden",
+										"alta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alta orden Hamburguesa",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "codigo_comanda",
+											"value": "aaaa1111",
+											"type": "text"
+										},
+										{
+											"key": "pedido",
+											"value": "Hamburguesa",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "estado",
+											"value": "ingresado",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "codigo_comanda",
+											"value": "aaa1234",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "pedido",
+											"value": "2 porciones de tarta",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/app/laComanda/public/orden/alta",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"app",
+										"laComanda",
+										"public",
+										"orden",
+										"alta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alta orden daikiri",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "codigo_comanda",
+											"value": "aaaa1111",
+											"type": "text"
+										},
+										{
+											"key": "pedido",
+											"value": "Daikiri",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "estado",
+											"value": "ingresado",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "codigo_comanda",
+											"value": "aaa1234",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "pedido",
+											"value": "2 porciones de tarta",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/app/laComanda/public/orden/alta",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"app",
+										"laComanda",
+										"public",
+										"orden",
+										"alta"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Modificar",
+					"item": [
+						{
+							"name": "Modificar Estado",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "id",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "estado",
+											"value": "en preparacion",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "estado",
+											"value": "listo para servir",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/app/laComanda/public/orden/modificarestado",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"app",
+										"laComanda",
+										"public",
+										"orden",
+										"modificarestado"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modificar  pedido",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "id",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "pedido",
+											"value": "Cerveza",
+											"type": "text"
+										},
+										{
+											"key": "codigo_comanda",
+											"value": "9999999",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/app/laComanda/public/orden/modificarpedido",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"app",
+										"laComanda",
+										"public",
+										"orden",
+										"modificarpedido"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Alta orden pedido error",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo_comanda",
+									"value": "65465445",
+									"type": "text"
+								},
+								{
+									"key": "pedido",
+									"value": "Hamburguesa",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/alta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"alta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer orden",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/traeruno/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"traeruno",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer todas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/traertodas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"traertodas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer ingresadas y en preparacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/traeringresadasprep",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"traeringresadasprep"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer listas servir",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/traerlistasservir",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"traerlistasservir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer ordenes demora",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/totaldemora/aaaa1111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"totaldemora",
+								"aaaa1111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer por codigo comanda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/traerporcomanda/aaaa1111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"traerporcomanda",
+								"aaaa1111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar  orden",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "codigo",
+								"value": "ooo888",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "pedido",
+								"value": "tostado",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "18",
+									"type": "text"
+								},
+								{
+									"key": "pedido",
+									"value": "Hamburguesa",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/borraruno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"borraruno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer por Usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/orden/traerporusuario/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"orden",
+								"traerporusuario",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Encuestas",
+			"item": [
+				{
+					"name": "cargar encuesta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "id_encuesta",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo_comanda",
+									"value": "aaa1234",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "codigo_mesa",
+									"value": "mesa01",
+									"type": "text"
+								},
+								{
+									"key": "codigo_comanda",
+									"value": "78457845",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "codigo comanda",
+									"value": "cccc1245",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/encuesta/alta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"encuesta",
+								"alta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "traer todas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/encuesta/traertodas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"encuesta",
+								"traertodas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "traer una encuesta",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "id",
+								"value": "2",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/encuesta/traeruna/aaa1234",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"encuesta",
+								"traeruna",
+								"aaa1234"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modificar encuesta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "codigo_comanda",
+									"value": "bbbb2222",
+									"type": "text"
+								},
+								{
+									"key": "codigo_mesa",
+									"value": "mesa04",
+									"type": "text"
+								},
+								{
+									"key": "p_mozo",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "p_cocinero",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "p_restaurant",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "p_mesa",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "comentario",
+									"value": "buena comida",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/encuesta/modificar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"encuesta",
+								"modificar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request Socios",
+			"item": [
+				{
+					"name": "Mejores comentarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/encuesta/traermejorescomentarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"encuesta",
+								"traermejorescomentarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mesa mas usada",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/app/laComanda/public/mesa/masusada",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"app",
+								"laComanda",
+								"public",
+								"mesa",
+								"masusada"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inicio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/app/prueba/public/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"app",
+						"prueba",
+						"public",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
