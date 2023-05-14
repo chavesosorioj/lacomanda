@@ -1,32 +1,37 @@
 <?php
 
-use Fpdf\Fpdf;
- //MODIFICAR - ver que hago en pdf
+// use Fpdf\Fpdf;
+require_once('./fpdf185/fpdf.php');
+
 require_once "./models/menu.php";
 
 class Archivos{
 
-    public function GenerarPDF(){
+    public static function GenerarPDF(){
 
-        $ventas = Venta::obtenerTodos();
+        // $ventas = Venta::obtenerTodos();
         $pdf=new FPDF();
         $pdf->AddPage();
         $pdf->SetFont('Arial','B',11);
-        $pdf->SetTitle("Ventas");
+        $pdf->SetTitle("Comanda");
 
         $pdf->Cell(150,10,'Juliana Chaves Osorio - La comanda', 0,1);
+        $pdf->Image('./assets/logo.png', 10, 20, 33);
+
 
         $pdf->Cell(60,10,'COMANDA', 0,1);
         $pdf->SetFont('Arial','',11);
 
-        foreach($ventas as $venta){                          // HACERLO CON EL TIPO DE VARIABLE A MOSTRAR EN EL PDF
-                        $pdf->Cell(20, 10, Venta::ToString($venta));
-            $pdf->Ln(10);            
+    //     // foreach($ventas as $venta){                          // HACERLO CON EL TIPO DE VARIABLE A MOSTRAR EN EL PDF
+    //     //                 $pdf->Cell(20, 10, Venta::ToString($venta));
+    //     //     $pdf->Ln(10);            
 
-        }
+    //     // }
         
-       // $pdf->Output();
-        $pdf->Output('F', './PDFs/' . 'venta' .'.pdf', 'I');
+        $pdf->Output('F', './PDFs/' . 'logo' .'.pdf', 'I');
+
+// $pdf->Cell(40,10,'¡Hola, Mundo!');
+$pdf->Output();
     }
 
     public function GetCSV(){

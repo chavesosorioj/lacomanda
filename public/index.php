@@ -44,6 +44,9 @@ $app->get('/', function (Request $request, Response $response) {
      $group->get('/traertodos', \UsuarioController::class . ':TraerTodos');
      $group->put('/modificar', \UsuarioController::class . ':ModificarUno');
      $group->delete('/borrar/{id}', \UsuarioController::class . ':BorrarUno');
+
+     //SOCIOS PETICIONES
+      $group->get('/GenerarPDF', \UsuarioController::class . ':DescargarPDF');
  });
 
 
@@ -130,8 +133,6 @@ $app->get('/', function (Request $request, Response $response) {
 
      $group->delete('/borraruno', \OrdenController::class. ':BorrarUno');
 // //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
-  
-//    // $group->get('/GenerarPDF/', \VentaController::class . ':DescargarPDF');
 
     $group->get('/totaldemora/{codigo_comanda}', \OrdenController::class . ':TotalDemora');
 
@@ -154,7 +155,6 @@ $app->group('/encuesta', function (RouteCollectorProxy $group) {
   $group->get('/traermejorescomentarios', \EncuestaController::class . ':TraerMejores');
   //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
-  
 });
 
  $app->run();

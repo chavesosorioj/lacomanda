@@ -2,6 +2,7 @@
 <?php
 
 require_once './models/Usuario.php';
+require_once './archivos/archivos.php';
 require_once './interfaces/IApiUsable.php';
 require_once './middlewares/AutenticacionJWT.php';
 
@@ -125,6 +126,17 @@ class UsuarioController extends Usuario implements IApiUsable{
         
         return $response->withHeader('Content-Type', 'application/json');
       }
+
+
+
+      public function DescargarPDF($request, $response, $args){
+        
+        Archivos::GenerarPDF();
+        $response->getBody()->write("Descargando pdf");
+        return $response->withHeader('Content-Type', 'application/json');
+    
+    }
+
 }
 
 
