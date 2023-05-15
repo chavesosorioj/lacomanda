@@ -33,11 +33,11 @@ class MesaController extends Mesa implements IApiUsable{
             $mesa->mozo = Usuario::ObtenerUnUsuarioPorPuesto( $parametros['mozo']);
             $mesa->foto = Archivos::NombreFoto($_FILES['foto']);
             $mesa->id_puntuacion = -1; 
-            $mesa->fecha = $auxFecha->format('d-m-Y'); 
+            $mesa->fecha = $auxFecha->format('Y-m-d'); 
             
-            Archivos::GuardarFoto($_FILES['foto'], $mesa);
+            // Archivos::GuardarFoto($_FILES['foto'], $mesa);
             var_dump($mesa);
-            $mesa->crearMesa();
+            // $mesa->crearMesa();
     
             $payload = json_encode(array("mensaje" => "Mesa creada con exito"));
         }
@@ -126,6 +126,16 @@ class MesaController extends Mesa implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function TraerImportePorFecha($request, $response, $args){
+        $parametros = $request->getParsedBody();
+        $importe = Mesa::obtenerMesaPorFecha($parametros['codigo_mesa'],$parametros['fecha1'],$parametros['fecha2']);
+
+        $payload = json_encode("El importe total de lo facturado por la mesa ".$parametros['codigo_mesa']." entre las fechas seleccionadas es ".$importe[0][0]." pesos.");
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
 
 }
 

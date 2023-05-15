@@ -53,6 +53,18 @@ class Comanda{
 
         return $consulta->fetchObject('Comanda');
     }
+
+    public static function obtenerComandaImporte()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id_mesa, MIN(importe) as importe_minimo
+                                                        FROM comanda
+                                                        GROUP BY id_mesa
+                                                        ORDER BY importe_minimo ASC");
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
+
     public static function obtenerComandaCodigo($codigo_comanda)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
@@ -101,6 +113,14 @@ class Comanda{
             default:
                 return 'Error';
     
+        }
+    }
+
+    public static function ComandaBarataCara(){
+        $lista = Comanda::obtenerComandaImporte();
+        echo "------- Mesas segun el importe de la mas barata a la mas cara"."\n";
+        foreach($lista as $com){
+            echo "mesa ".$com[0]." - importe ".$com[1]."\n";
         }
     }
 }

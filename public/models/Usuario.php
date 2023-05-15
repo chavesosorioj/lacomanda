@@ -183,11 +183,11 @@ class Usuario{
         $lista = self::obtenerTodos();
         $array = array();
         foreach($lista as $aux){
-            if($aux->GetPuesto()==$puesto){
+            if($aux->GetIdPuesto()==$puesto){
                 array_push($array, $aux);
             }
         }
-        //  var_dump($array);
+        //   var_dump($array);
         $random = random_int(1, count($array));
         if($random == count($array))
             return $array[$random-1]->GetIdUsuario();

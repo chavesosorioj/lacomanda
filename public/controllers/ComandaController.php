@@ -102,6 +102,13 @@ class ComandaController extends Comanda implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function BarataCara($request, $response, $args){
+
+        Comanda::ComandaBarataCara();
+        $payload = json_encode("Mesas barata - cara");
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }
 
 

@@ -16,7 +16,7 @@ class Archivos{
         $pdf->SetTitle("Comanda");
 
         $pdf->Cell(150,10,'Juliana Chaves Osorio - La comanda', 0,1);
-        $pdf->Image('./assets/logo.png', 10, 20, 33);
+        $pdf->Image('./assets/logo.png', 10, 8, 33);
 
 
         $pdf->Cell(60,10,'COMANDA', 0,1);

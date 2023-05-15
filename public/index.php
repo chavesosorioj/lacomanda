@@ -72,9 +72,12 @@ $app->get('/', function (Request $request, Response $response) {
    $group->delete('/borrar/{codigo_mesa}', \MesaController::class . ':BorrarUno');
 //      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
+//SOCIOS PETICIONES
      $group->get('/masusada', \MesaController::class . ':TraerMasUsada');
 //   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
     
+     $group->post('/importeporfecha', \MesaController::class . ':TraerImportePorFecha');
+//   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
 });
 
@@ -99,6 +102,10 @@ $app->get('/', function (Request $request, Response $response) {
 
      $group->delete('/borrar/{codigo_comanda}', \ComandaController::class . ':BorrarUno');
 // //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+//SOCIOS SOLICITUDES
+     $group->get('/baratacara', \ComandaController::class . ':BarataCara');
+//   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
   
     
  });
@@ -138,6 +145,7 @@ $app->get('/', function (Request $request, Response $response) {
     $group->get('/traerporusuario/{idUsuario}', \OrdenController::class . ':TraerOrdenPorUsuario'); 
     // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
 
+    //SOCIOS PETICIONES
     $group->get('/totaloperaciones', \OrdenController::class . ':TraerTotalOperaciones'); 
     // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
 

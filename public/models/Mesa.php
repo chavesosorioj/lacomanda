@@ -92,6 +92,8 @@ class Mesa{
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Mesa');
     }
 
+
+    //REVISAAAAAARRR
     public static function obtenerMesaCodigoPedido($codigo_mesa, $pedido_id)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
@@ -99,12 +101,29 @@ class Mesa{
                                                                 tiempo, estado, mozo, fecha,
                                                              foto, comentario 
                                                         FROM mesas WHERE codigo_mesa = :codigo_mesa
-                                                        an $codigo_comanda = $codigo_comanda");
+                                                        and codigo_comanda = :codigo_comanda");
         $consulta->bindValue(':codigo_mesa', $codigo_mesa, PDO::PARAM_STR);
         $consulta->bindValue( ':codigo_comanda', $pedido_id, PDO::PARAM_INT);
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Mesa');
+    }
+
+    public static function obtenerMesaPorFecha($codigo_mesa, $fecha1, $fecha2)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT SUM(c.importe) as total_facturado 
+                                                        FROM comanda c 
+                                                        INNER JOIN mesas m 
+                                                        ON c.codigo_comanda = m.codigo_comanda 
+                                                        WHERE m.fecha BETWEEN :fecha1 AND :fecha2 
+                                                        AND m.codigo_mesa = :codigo_mesa");
+        $consulta->bindValue(':codigo_mesa', $codigo_mesa, PDO::PARAM_STR);
+        $consulta->bindValue( ':fecha1', $fecha1, PDO::PARAM_STR);
+        $consulta->bindValue( ':fecha2', $fecha2, PDO::PARAM_STR);
+        $consulta->execute();
+
+        return $consulta->fetchAll();
     }
 
     public static function borrarMesa($codigo_mesa)
@@ -163,5 +182,7 @@ class Mesa{
 
         echo 'La mesa con código ' . $codigo_maximo . ' aparece ' . $maximo . ' veces en la lista.';
     }
+
+
 }
 ?>
