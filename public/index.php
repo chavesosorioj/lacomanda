@@ -38,16 +38,24 @@ $app->get('/', function (Request $request, Response $response) {
 
  $app->group('/usuario', function (RouteCollectorProxy $group) {
      $group->post('/login', \UsuarioController::class . ':LogIn'); // obtengo el token
-     $group->post('/alta', \UsuarioController::class . ':CargarUno')
-        ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
      $group->get('/traeruno/{mail}', \UsuarioController::class . ':TraerUno');
      $group->get('/traertodos', \UsuarioController::class . ':TraerTodos');
-     $group->put('/modificar', \UsuarioController::class . ':ModificarUno');
-     $group->delete('/borrar/{id}', \UsuarioController::class . ':BorrarUno');
+    
 
      //SOCIOS PETICIONES
+     $group->post('/alta', \UsuarioController::class . ':CargarUno')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->put('/modificar', \UsuarioController::class . ':ModificarUno')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->delete('/borrar/{id}', \UsuarioController::class . ':BorrarUno')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
       $group->get('/ingresousuario/{id}', \UsuarioController::class . ':TraerIngreso')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
      $group->get('/GenerarPDF', \UsuarioController::class . ':DescargarPDF')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
  });
@@ -60,8 +68,8 @@ $app->get('/', function (Request $request, Response $response) {
     $group->post('/alta', \MesaController::class . ':CargarUno');
     //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
-   $group->get('/traertodas', \MesaController::class . ':TraerTodos');
-   //   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+   $group->get('/traertodas', \MesaController::class . ':TraerTodos')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
   
    $group->get('/traeruna/{id}', \MesaController::class . ':TraerUno');
    //   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
@@ -69,8 +77,9 @@ $app->get('/', function (Request $request, Response $response) {
    $group->get('/traerporcomanda/{codigo_comanda}', \MesaController::class . ':TraerPorCodComanda');
 //      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
-    $group->put('/modificar', \MesaController::class . ':ModificarUno');
-//      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+    $group->put('/modificar', \MesaController::class . ':ModificarUno')
+      ->add(\UsuariosMiddleware::class . ':VerificaAccesoMozo');
+     //  ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
    $group->delete('/borrar/{codigo_mesa}', \MesaController::class . ':BorrarUno');
 //      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
@@ -108,11 +117,11 @@ $app->get('/', function (Request $request, Response $response) {
      $group->get('/baratacara', \ComandaController::class . ':BarataCara')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
-     $group->get('/entregadoatiempo', \ComandaController::class . ':TraerEntregadaTiempo');
-     // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+     $group->get('/entregadoatiempo', \ComandaController::class . ':TraerEntregadaTiempo')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
-     $group->get('/noentregadoatiempo', \ComandaController::class . ':TraerEntregadaDemora');
-     // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+     $group->get('/noentregadoatiempo', \ComandaController::class . ':TraerEntregadaDemora')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
   
     
  });
@@ -131,12 +140,9 @@ $app->get('/', function (Request $request, Response $response) {
 
      $group->get('/traeruno/{id}', \OrdenController::class . ':TraerUno');
  //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
-     
-     $group->get('/traeringresadasprep', \OrdenController::class . ':TraerIngresadasPrep');
- //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
-     $group->get('/traerlistasservir', \OrdenController::class . ':TraerListo');
- //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoMozo');
+     $group->get('/traerlistasservir', \OrdenController::class . ':TraerListo')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoMozo');
 
      $group->put('/modificarpedido', \OrdenController::class . ':ModificarUno');
  //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
@@ -158,6 +164,9 @@ $app->get('/', function (Request $request, Response $response) {
 
     $group->get('/masmenosvendido', \OrdenController::class . ':TraerMasMenosVendido')
     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
+
+    $group->get('/traeringresadasprep', \OrdenController::class . ':TraerIngresadasPrep')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
     
  });
 

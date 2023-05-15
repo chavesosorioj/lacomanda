@@ -104,12 +104,15 @@ class Usuario{
         return $consulta->fetchAll();
     }
 
-    // que necesito modificar aca?
-    public static function modificarUsuario($mail, $idUsuario)
+    public static function modificarUsuario($estado, $numEstado, $idUsuario)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios SET mail = :mail WHERE idUsuario = :idUsuario");
-        $consulta->bindValue(':mail', $mail, PDO::PARAM_STR);
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios
+                                                     SET estado = :estado,
+                                                        idEstado = :numEstado 
+                                                     WHERE idUsuario = :idUsuario");
+        $consulta->bindValue(':estado', $estado, PDO::PARAM_STR);
+        $consulta->bindValue(':numEstado', $numEstado, PDO::PARAM_INT);
         $consulta->bindValue(':idUsuario', $idUsuario, PDO::PARAM_INT);
         $consulta->execute();
     }
@@ -132,19 +135,6 @@ class Usuario{
         $consulta->execute();
     }
 
-    // public function echoUsuario(){
-    //     echo 'Nombre: '.$this->nombre.'\n';
-    //     echo 'Mail: '.$this->mail.'\n';
-    //     echo 'clave: '.$this->clave.'\n';
-    //     echo 'Puesto: '.$this->Puesto.'\n';
-    // }
-
-    // public function listarUsuarios($lista){
-    //     foreach($lista as $aux){
-    //         $aux->echoUsuario();
-    //     }
-    // }
-
     public function Puesto($aux){
         switch($aux)
         {
@@ -164,7 +154,7 @@ class Usuario{
         }
     }
 
-    public function Estado($aux){
+    public static function Estado($aux){
         switch($aux)
         {
             case "Disponible":

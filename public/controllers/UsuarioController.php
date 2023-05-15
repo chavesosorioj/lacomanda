@@ -27,8 +27,8 @@ class UsuarioController extends Usuario implements IApiUsable{
                 $Us->clave = $parametros['clave'];
                 $Us->puesto = $parametros['puesto'];
                 $Us->estado = $parametros['estado'];
-                $Us->idEstado = Usuario::Estado($Us->estado);
-                $Us->idPuesto = Usuario::Puesto($Us->puesto);
+                $Us->idEstado = Usuario::Estado($parametros['estado']);
+                $Us->idPuesto = Usuario::Puesto($parametros['puesto']);
                 $Us->fecha_ingreso = $auxFecha->format('d-m-Y'); 
                 $Us->fecha_salida = '---';
                 $Us->crearUsuario();
@@ -81,8 +81,17 @@ class UsuarioController extends Usuario implements IApiUsable{
 
         $aux = Usuario::obtenerUsuarioId($idUsuario);
         if(!empty($aux)){
-            $mail = $parametros['mail'];
-            Usuario::modificarUsuario($mail, $idUsuario);
+            $est = Usuario::Estado($parametros['estado']);
+            switch($est){
+                case 1:
+                    Usuario::modificarUsuario($parametros['estado'], $est, $idUsuario);
+                case 2:
+                    Usuario::modificarUsuario($parametros['estado'], $est, $idUsuario);
+                case 3:
+                    Usuario::borrarUsuario($idUsuario);
+                default:
+                    echo "Error, estado incorrecto";
+            }
             $payload = json_encode(array("mensaje" => "Usuario actualizado con exito"));
         }
         else {

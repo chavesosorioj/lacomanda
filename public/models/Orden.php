@@ -94,7 +94,7 @@ class Orden{
                                                         FROM ordenes ORDER BY area ASC");
         $consulta->execute();
 
-        return $consulta->fetchObject('Orden');
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
     }
 
     public static function obtenerMasMenosVendido()
