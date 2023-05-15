@@ -186,6 +186,22 @@ class OrdenController extends Orden implements IApiUsable{
                 $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public static function TraerTotalOperaciones($request, $response, $args){
+
+        $lista = Orden::obtenerOrdenSector();
+        $payload = json_encode(array("Operaciones totales ordenadas por sector" => $lista));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public static function TraerMasMenosVendido($request, $response, $args){
+
+        Orden::MasMenosVendido();
+        $payload = json_encode("Mas menos pedido");
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }
 
 ?>

@@ -86,6 +86,30 @@ class Orden{
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
     }
 
+    public static function obtenerOrdenSector()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id,idUsuario, codigo_comanda, pedido, 
+                                                            area, demora, estado
+                                                        FROM ordenes ORDER BY area ASC");
+        $consulta->execute();
+
+        return $consulta->fetchObject('Orden');
+    }
+
+    public static function obtenerMasMenosVendido()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT pedido, COUNT(*) AS cantidad
+                                                        FROM ordenes
+                                                        GROUP BY pedido
+                                                        ORDER BY cantidad DESC");
+        $consulta->execute();
+
+        return $consulta->fetchAll();
+        // return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
+    }
+
     public static function ModificarOrdenEstado($estado, $id)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();
@@ -162,6 +186,16 @@ class Orden{
         echo "Pedido - ".$this->pedido."\n";
         echo "Demora - ".$this->demora."\n";
 
+    }
+
+    public static function MasMenosVendido(){
+        $lista = Orden::obtenerMasMenosVendido();
+        // var_dump($lista);
+
+        echo "------- ORDENADO DEL MAS PEDIDO AL MENOS PEDIDO------"."\n";
+        foreach($lista as $or){
+            echo $or[0]." - ".$or[1]."\n";
+        }
     }
 }
 

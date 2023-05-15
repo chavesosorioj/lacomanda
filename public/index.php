@@ -100,7 +100,6 @@ $app->get('/', function (Request $request, Response $response) {
      $group->delete('/borrar/{codigo_comanda}', \ComandaController::class . ':BorrarUno');
 // //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
   
-//    // $group->get('/GenerarPDF/', \VentaController::class . ':DescargarPDF');
     
  });
 
@@ -139,7 +138,11 @@ $app->get('/', function (Request $request, Response $response) {
     $group->get('/traerporusuario/{idUsuario}', \OrdenController::class . ':TraerOrdenPorUsuario'); 
     // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
 
-    
+    $group->get('/totaloperaciones', \OrdenController::class . ':TraerTotalOperaciones'); 
+    // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
+
+    $group->get('/masmenosvendido', \OrdenController::class . ':TraerMasMenosVendido'); 
+    // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
     
  });
 
