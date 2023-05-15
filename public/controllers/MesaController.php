@@ -35,9 +35,9 @@ class MesaController extends Mesa implements IApiUsable{
             $mesa->id_puntuacion = -1; 
             $mesa->fecha = $auxFecha->format('Y-m-d'); 
             
-            // Archivos::GuardarFoto($_FILES['foto'], $mesa);
+             Archivos::GuardarFoto($_FILES['foto'], $mesa);
             var_dump($mesa);
-            // $mesa->crearMesa();
+             $mesa->crearMesa();
     
             $payload = json_encode(array("mensaje" => "Mesa creada con exito"));
         }
@@ -83,7 +83,6 @@ class MesaController extends Mesa implements IApiUsable{
           ->withHeader('Content-Type', 'application/json');
     }
 
-        //Modifica el estado de la mesa
 	public function ModificarUno($request, $response, $args){
         $parametros = $request->getParsedBody();
         $codcom = Mesa::obtenerMesaCodigoComanda($parametros['codigo_comanda']);

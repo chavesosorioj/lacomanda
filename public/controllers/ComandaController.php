@@ -11,7 +11,7 @@ class ComandaController extends Comanda implements IApiUsable{
         
         $parametros = $request->getParsedBody();
         $codigo = Comanda::GenerarCodigo();
-        echo "el codigo es ".$codigo;
+        // echo "el codigo es ".$codigo;
 
         $auxCom = Comanda::obtenerComandaCodigo($codigo); 
 
@@ -36,7 +36,6 @@ class ComandaController extends Comanda implements IApiUsable{
             $com->baja = 1; // ver si se lo saco
             $com->crearComanda();
 
-            //$datos = array("id" => $emp->id, "tipo_usuario" => $emp->sector); // esto no se para que lo quiero
             $payload = json_encode(array("mensaje" => "Comanda creada con exito", "Codigo para el cliente: " => $codigo));
         }
 
