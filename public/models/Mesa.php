@@ -126,6 +126,7 @@ class Mesa{
         return $consulta->fetchAll();
     }
 
+
     public static function borrarMesa($codigo_mesa)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();

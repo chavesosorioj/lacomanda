@@ -29,7 +29,7 @@ $app->addErrorMiddleware(true, true, true);
 $app->addBodyParsingMiddleware();
 
 $app->get('/', function (Request $request, Response $response) {    
-    $response->getBody()->write("GET => Hola mundo");
+    $response->getBody()->write("GET => La Comanda - JC");
     return $response;
 
 });
@@ -47,7 +47,7 @@ $app->get('/', function (Request $request, Response $response) {
 
      //SOCIOS PETICIONES
       $group->get('/ingresousuario/{id}', \UsuarioController::class . ':TraerIngreso')
-     >add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
      $group->get('/GenerarPDF', \UsuarioController::class . ':DescargarPDF')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
  });
@@ -107,6 +107,12 @@ $app->get('/', function (Request $request, Response $response) {
 //SOCIOS SOLICITUDES
      $group->get('/baratacara', \ComandaController::class . ':BarataCara')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/entregadoatiempo', \ComandaController::class . ':TraerEntregadaTiempo');
+     // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/noentregadoatiempo', \ComandaController::class . ':TraerEntregadaDemora');
+     // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
   
     
  });

@@ -51,6 +51,7 @@ class ComandaController extends Comanda implements IApiUsable{
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
+
     public function TraerPorId($request, $response, $args){
 
         $id = $args['id'];
@@ -69,6 +70,22 @@ class ComandaController extends Comanda implements IApiUsable{
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function TraerEntregadaTiempo($request, $response, $args){
+
+        Comanda::EntregadaTiempo();
+        $response->getBody()->write("Entregadas a tiempo");
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerEntregadaDemora($request, $response, $args){
+        Comanda::EntregadaDemora();
+        $response->getBody()->write("Entregadas demora");
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+
+
 
     public function ModificarUno($request, $response, $args){
         $parametros = $request->getParsedBody();

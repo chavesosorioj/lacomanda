@@ -78,6 +78,20 @@ class Comanda{
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Comanda');
     }
 
+    public static function obtenerComandaEntrega()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT c.codigo_comanda, SUM(o.demora) as tiempo_ordenes, c.demora 
+                                                        as tiempo_comanda FROM comanda c 
+                                                        INNER JOIN ( SELECT codigo_comanda, SUM(demora) as demora 
+                                                                    FROM ordenes GROUP BY codigo_comanda ) o 
+                                                        WHERE c.codigo_comanda = o.codigo_comanda 
+                                                        GROUP BY c.codigo_comanda");
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
+
+
     public static function borrarComanda($codigo_comanda)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();
@@ -122,6 +136,36 @@ class Comanda{
         foreach($lista as $com){
             echo "mesa ".$com[0]." - importe ".$com[1]."\n";
         }
+    }
+
+    public static function EntregadaTiempo(){
+        $lista = self::obtenerComandaEntrega();
+        $cant=0;
+
+        echo "---Comandas entregadas a tiempo ---"."\n";
+        foreach($lista as $com){
+            if(intval($com[1]) == $com[2]){
+                echo "Comanda - ".$com[0]."\n";
+                $cant = $cant+1;
+            }
+        }
+        if($cant ===0)
+            echo "Ninguna comanda fue entregada a tiempo "."\n";
+    }
+
+    public static function EntregadaDemora(){
+        $lista = self::obtenerComandaEntrega();
+        $cant=0;
+
+        echo "---Comandas entregadas con demora ---"."\n";
+        foreach($lista as $com){
+            if(intval($com[1]) != $com[2]){
+                echo "Comanda - ".$com[0]."\n";
+                $cant = $cant+1;
+            }
+        }
+        if($cant ===0)
+            echo "Todas las comandas fueron entregadas a tiempo "."\n";
     }
 }
 
