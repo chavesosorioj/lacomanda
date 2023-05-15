@@ -92,6 +92,18 @@ class Usuario{
         return $consulta->fetchObject('Usuario');
     }
 
+    public static function obtenerUsuarioIngreso($id){
+
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT idUsuario, nombre, fecha_ingreso
+                                                        FROM usuarios WHERE 
+                                                        id = :id");
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
+
+        return $consulta->fetchAll();
+    }
+
     // que necesito modificar aca?
     public static function modificarUsuario($mail, $idUsuario)
     {

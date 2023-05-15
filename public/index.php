@@ -46,7 +46,10 @@ $app->get('/', function (Request $request, Response $response) {
      $group->delete('/borrar/{id}', \UsuarioController::class . ':BorrarUno');
 
      //SOCIOS PETICIONES
-      $group->get('/GenerarPDF', \UsuarioController::class . ':DescargarPDF');
+      $group->get('/ingresousuario/{id}', \UsuarioController::class . ':TraerIngreso')
+     >add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+     $group->get('/GenerarPDF', \UsuarioController::class . ':DescargarPDF')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
  });
 
 
@@ -73,11 +76,11 @@ $app->get('/', function (Request $request, Response $response) {
 //      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
 //SOCIOS PETICIONES
-     $group->get('/masusada', \MesaController::class . ':TraerMasUsada');
-//   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+     $group->get('/masusada', \MesaController::class . ':TraerMasUsada')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
     
-     $group->post('/importeporfecha', \MesaController::class . ':TraerImportePorFecha');
-//   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+     $group->post('/importeporfecha', \MesaController::class . ':TraerImportePorFecha')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
 });
 
@@ -86,8 +89,6 @@ $app->get('/', function (Request $request, Response $response) {
 
     $group->post('/alta', \ComandaController::class . ':CargarUno');
   //  ->add(\UsuariosMiddleware::class . ':VerificaAccesoMozo');
-
-//     $group->get('/TraerUnaComanda/{nombre}', \EComandaController::class . ':TraerUno');
 
      $group->get('/traertodas', \ComandaController::class . ':TraerTodos');
 
@@ -104,8 +105,8 @@ $app->get('/', function (Request $request, Response $response) {
 // //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
 //SOCIOS SOLICITUDES
-     $group->get('/baratacara', \ComandaController::class . ':BarataCara');
-//   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+     $group->get('/baratacara', \ComandaController::class . ':BarataCara')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
   
     
  });
@@ -132,13 +133,13 @@ $app->get('/', function (Request $request, Response $response) {
  //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoMozo');
 
      $group->put('/modificarpedido', \OrdenController::class . ':ModificarUno');
-// //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+ //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
     $group->put('/modificarestado', \OrdenController::class . ':ModificarEstado');
-// //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+ //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
      $group->delete('/borraruno', \OrdenController::class. ':BorrarUno');
-// //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+ //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
     $group->get('/totaldemora/{codigo_comanda}', \OrdenController::class . ':TotalDemora');
 
@@ -146,11 +147,11 @@ $app->get('/', function (Request $request, Response $response) {
     // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
 
     //SOCIOS PETICIONES
-    $group->get('/totaloperaciones', \OrdenController::class . ':TraerTotalOperaciones'); 
-    // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
+    $group->get('/totaloperaciones', \OrdenController::class . ':TraerTotalOperaciones')
+    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
 
-    $group->get('/masmenosvendido', \OrdenController::class . ':TraerMasMenosVendido'); 
-    // ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
+    $group->get('/masmenosvendido', \OrdenController::class . ':TraerMasMenosVendido')
+    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
     
  });
 
@@ -163,8 +164,9 @@ $app->group('/encuesta', function (RouteCollectorProxy $group) {
   $group->get('/traeruna/{codigo_comanda}', \EncuestaController::class . ':TraerUno');
   $group->put('/modificar', \EncuestaController::class . ':ModificarUno');
 
-  $group->get('/traermejorescomentarios', \EncuestaController::class . ':TraerMejores');
-  //    ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+  //SOCIOS PETICIONES
+  $group->get('/traermejorescomentarios', \EncuestaController::class . ':TraerMejores')
+  ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
 });
 

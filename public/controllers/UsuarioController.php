@@ -67,6 +67,14 @@ class UsuarioController extends Usuario implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function TraerIngreso($request, $response, $args){
+        $aux = Usuario::obtenerUsuarioIngreso($args['id']);
+        $payload = json_encode("La fecha de ingreso del usuario ".$aux[0][1]." es ".$aux[0][2]);
+    
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
 	public function ModificarUno($request, $response, $args){
         $parametros = $request->getParsedBody();
         $idUsuario = $parametros['idUsuario'];

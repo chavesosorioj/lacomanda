@@ -32,6 +32,7 @@ class EncuestaController extends Encuesta implements IApiUsable{
             $enc->p_restaurant = -1; 
             $enc->comentario = " ";
             //var_dump($enc);
+            
             $enc->crearEncuesta();
     
             $payload = json_encode(array("mensaje" => "Encuesta creada con exito"));
