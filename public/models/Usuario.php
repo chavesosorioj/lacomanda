@@ -15,7 +15,7 @@ class Usuario{
     public $fecha_ingreso;
     public $fecha_salida;
 
-    // no estoy segura de idPuesto o idEstado
+
     public function GetIdPuesto(){
         return $this->idPuesto;
     }

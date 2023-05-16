@@ -118,7 +118,7 @@ class Orden{
         $consulta->execute();
 
         return $consulta->fetchAll();
-        // return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
+
     }
 
     public static function obtenerOrdenCantSector()
@@ -131,7 +131,7 @@ class Orden{
         $consulta->execute();
 
         return $consulta->fetchAll();
-        // return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
+
     }
 
     public static function obtenerOrdenMasVendida()

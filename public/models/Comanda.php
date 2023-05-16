@@ -13,9 +13,9 @@ class Comanda{
     public $codigo_comanda; 
     public $importe;
     public $estado;
-    public $demora; // necesito tener la demora? si ya las tienen las ordenes cada una por el codigo de la comanda
-    public $baja; // ver si se lo saco
-
+    public $demora; 
+    public $baja; 
+    
     public function crearComanda()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
