@@ -191,6 +191,14 @@ class OrdenController extends Orden implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public static function TraerCanceladas($request, $response, $args){
+        $lista = Orden::obtenerOrdenCancelada();
+        $payload = json_encode(array('Ordenes canceladas ' => $lista));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+
     public function TraerOrdenPorUsuario($request, $response, $args){
         $idUsuario = $args['idUsuario'];
          $aux = Usuario::obtenerUsuarioId($idUsuario);

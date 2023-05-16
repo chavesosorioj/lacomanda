@@ -126,6 +126,52 @@ class Mesa{
         return $consulta->fetchAll();
     }
 
+    public static function obtenerMesaMenosUsada()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT codigo_mesa, 
+                                                        COUNT(*) AS usos FROM mesas 
+                                                        GROUP BY codigo_mesa 
+                                                        ORDER BY usos 
+                                                        ASC LIMIT 1");
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
+
+    public static function obtenerMesaMasUsada()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT codigo_mesa, 
+                                                        COUNT(*) AS usos FROM mesas 
+                                                        GROUP BY codigo_mesa 
+                                                        ORDER BY usos 
+                                                        DESC LIMIT 1");
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
+
+    public static function obtenerMesaMenosImporte()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT codigo_mesa, 
+                                                        COUNT(*) AS usos FROM mesas 
+                                                        GROUP BY codigo_mesa 
+                                                        ORDER BY usos 
+                                                        ASC LIMIT 1");
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
+
+    public static function obtenerMesaMasImporte()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT mesas.codigo_mesa, SUM(comanda.importe) AS total_facturado 
+                                                        FROM mesas JOIN comanda ON mesas.codigo_comanda = comanda.codigo_comanda
+                                                        GROUP BY mesas.codigo_mesa 
+                                                        ORDER BY total_facturado DESC LIMIT 1");
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
 
     public static function borrarMesa($codigo_mesa)
     {
@@ -161,28 +207,28 @@ class Mesa{
         }
     }
 
-    public static function MasUsada(){
-        $lista = Mesa::obtenerTodos();
-        $contador = array();
-        $maximo = 0;
-        $codigo_maximo = '';
-        foreach ($lista as $mesa) {
-            $codigo = $mesa->GetMesa();
-            if (!isset($contador[$codigo])) {
-                $contador[$codigo] = 0;
-            }
-            $contador[$codigo]++;
-        }
+    // public static function MasUsada(){
+    //     $lista = Mesa::obtenerTodos();
+    //     $contador = array();
+    //     $maximo = 0;
+    //     $codigo_maximo = '';
+    //     foreach ($lista as $mesa) {
+    //         $codigo = $mesa->GetMesa();
+    //         if (!isset($contador[$codigo])) {
+    //             $contador[$codigo] = 0;
+    //         }
+    //         $contador[$codigo]++;
+    //     }
 
-        foreach ($contador as $codigo => $cantidad) {
-            if ($cantidad > $maximo) {
-                $maximo = $cantidad;
-                $codigo_maximo = $codigo;
-            }
-        }
+    //     foreach ($contador as $codigo => $cantidad) {
+    //         if ($cantidad > $maximo) {
+    //             $maximo = $cantidad;
+    //             $codigo_maximo = $codigo;
+    //         }
+    //     }
 
-        echo 'La mesa con código ' . $codigo_maximo . ' aparece ' . $maximo . ' veces en la lista.';
-    }
+    //     echo 'La mesa con código ' . $codigo_maximo . ' aparece ' . $maximo . ' veces en la lista.';
+    // }
 
 
 }

@@ -74,9 +74,35 @@ class MesaController extends Mesa implements IApiUsable{
     }
 
     public function TraerMasUsada($request, $response, $args){
-        $lista = Mesa::obtenerTodos();
-        Mesa::MasUsada();
-        $payload = json_encode(array("Mesa mas usada"));
+        $aux = Mesa::obtenerMesaMasUsada();
+        $payload = json_encode("La mesa mas usada fue ".$aux[0][0]);
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerMenosUsada($request, $response, $args){
+        $aux = Mesa::obtenerMesaMenosUsada();
+        $payload = json_encode("La mesa menos usada fue ".$aux[0][0]);
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerMasImporte($request, $response, $args){
+        $aux = Mesa::obtenerMesaMasImporte();
+        $payload = json_encode("La mesa con mayor importe fue ".$aux[0][0]);
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerMenosImporte($request, $response, $args){
+        $aux = Mesa::obtenerMesaMenosImporte();
+        $payload = json_encode("La mesa con menos importe fue ".$aux[0][0]);
 
         $response->getBody()->write($payload);
         return $response

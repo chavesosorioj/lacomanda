@@ -87,8 +87,17 @@ $app->get('/', function (Request $request, Response $response) {
 //SOCIOS PETICIONES
      $group->get('/masusada', \MesaController::class . ':TraerMasUsada')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/menosusada', \MesaController::class . ':TraerMenosUsada')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
     
      $group->post('/importeporfecha', \MesaController::class . ':TraerImportePorFecha')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/importealto', \MesaController::class . ':TraerMasImporte')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/importebajo', \MesaController::class . ':TraerMenosImporte')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
 });
@@ -172,6 +181,9 @@ $app->get('/', function (Request $request, Response $response) {
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
      $group->get('/traermasmenosvendido/{opcion}', \OrdenController::class . ':TraerMasMenosVendido')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/traercanceladas', \OrdenController::class . ':TraerCanceladas')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
     
  });

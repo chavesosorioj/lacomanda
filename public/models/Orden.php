@@ -2,7 +2,7 @@
 
 //////////////////////////
 // las ordenes tienen los siguientes estados que se envian por postman
-// ingresada - en preparacion - lista para servir 
+// ingresada - en preparacion - lista para servir - cancelado
 ////////////////////////
 
 class Orden{
@@ -92,6 +92,17 @@ class Orden{
         $consulta = $objAccesoDatos->prepararConsulta("SELECT id,idUsuario, codigo_comanda, pedido, 
                                                             area, demora, estado
                                                         FROM ordenes ORDER BY area ASC");
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
+    }
+
+    public static function obtenerOrdenCancelada()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT *
+                                                        FROM ordenes
+                                                        WHERE estado = 'cancelada'");
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
