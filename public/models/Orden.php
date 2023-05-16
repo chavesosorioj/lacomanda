@@ -110,6 +110,44 @@ class Orden{
         // return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
     }
 
+    public static function obtenerOrdenCantSector()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT pedido, COUNT(*) as cantidad
+                                                        from ordenes
+                                                        GROUP by area
+                                                         ORDER by idUsuario");
+        $consulta->execute();
+
+        return $consulta->fetchAll();
+        // return $consulta->fetchAll(PDO::FETCH_CLASS, 'Orden');
+    }
+
+    public static function obtenerOrdenMasVendida()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT pedido, COUNT(*) AS veces_hecho
+                                                        FROM Ordenes
+                                                        GROUP BY pedido
+                                                        ORDER BY veces_hecho DESC
+                                                        LIMIT 1");
+        $consulta->execute();
+
+        return $consulta->fetchAll();
+    }
+
+    public static function obtenerOrdenMenosVendida()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT pedido
+                                                        FROM Ordenes
+                                                        GROUP BY pedido
+                                                        ORDER BY COUNT(*) ASC
+                                                        LIMIT 1");
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
+
     public static function ModificarOrdenEstado($estado, $id)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();

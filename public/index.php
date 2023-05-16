@@ -162,10 +162,16 @@ $app->get('/', function (Request $request, Response $response) {
     $group->get('/totaloperaciones', \OrdenController::class . ':TraerTotalOperaciones')
     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
 
-    $group->get('/masmenosvendido', \OrdenController::class . ':TraerMasMenosVendido')
+    $group->get('/masmenosvendido', \OrdenController::class . ':TraerListaMasMenosVendido')
     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio'); 
 
     $group->get('/traeringresadasprep', \OrdenController::class . ':TraerIngresadasPrep')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/traerordencantsector', \OrdenController::class . ':TraerOrdenCantSector')
+     ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+     $group->get('/traermasmenosvendido/{opcion}', \OrdenController::class . ':TraerMasMenosVendido')
      ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
     
  });
@@ -181,6 +187,9 @@ $app->group('/encuesta', function (RouteCollectorProxy $group) {
 
   //SOCIOS PETICIONES
   $group->get('/traermejorescomentarios', \EncuestaController::class . ':TraerMejores')
+  ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
+
+  $group->get('/traerpeorescomentarios', \EncuestaController::class . ':TraerPeores')
   ->add(\UsuariosMiddleware::class . ':VerificaAccesoSocio');
 
 });

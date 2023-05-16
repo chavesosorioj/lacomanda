@@ -168,6 +168,29 @@ class OrdenController extends Orden implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public static function TraerOrdenCantSector($request, $response, $args){
+        $lista = Orden::obtenerOrdenCantSector();
+
+        $payload = json_encode(array('Cantidad de operaciones, listado por empleados, agrupadas por sector' => $lista));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public static function TraerMasMenosVendido($request, $response, $args){
+       
+       
+        echo $args['opcion'];
+        if($args['opcion'] == 1){
+            $mas = Orden::obtenerOrdenMasVendida();
+            $payload = json_encode("El pedido mas vendido fue ".$mas[0][0]);
+        }else{
+            $menos = Orden::obtenerOrdenMenosVendida();
+                $payload = json_encode("El pedido menos vendido fue ".$menos[0][0]);  
+        }
+        $response->getBody()->write($payload); 
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
     public function TraerOrdenPorUsuario($request, $response, $args){
         $idUsuario = $args['idUsuario'];
          $aux = Usuario::obtenerUsuarioId($idUsuario);
@@ -195,7 +218,7 @@ class OrdenController extends Orden implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
-    public static function TraerMasMenosVendido($request, $response, $args){
+    public static function TraerListaMasMenosVendido($request, $response, $args){
 
         Orden::MasMenosVendido();
         $payload = json_encode("Mas menos pedido");

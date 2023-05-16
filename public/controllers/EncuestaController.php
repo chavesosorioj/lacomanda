@@ -83,6 +83,17 @@ class EncuestaController extends Encuesta implements IApiUsable{
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function TraerPeores($request, $response, $args){
+        Encuesta::peoresComentarios();
+        $payload = json_encode(array("Peores comentarios"));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    
+
     //VER QUE DATO SE LE MODIFICA
     public function ModificarUno($request, $response, $args){
         

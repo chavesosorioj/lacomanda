@@ -115,11 +115,29 @@ class Encuesta{
                 $enc->GetPMozo()>= 7 && $enc->GetPRestaurant()>= 7){
                     array_push($auxMejores, $enc);
                     echo "------"."\n";
-                    echo $enc->GetComentario()."\n";
+                    echo "- ".$enc->GetComentario()."\n";
 
             }
         }
         return $auxMejores;
+    }
+
+    public static function peoresComentarios(){
+
+        $lista = Encuesta::ObtenerTodos();
+        $aux =[];
+        echo "------Peores comentarios ----"."\n";
+        foreach($lista as $enc){
+            if($enc->GetPCocinero()<= 5 && $enc->GetPCocinero()!= -1 
+                && $enc->GetPMesa()<=5 && $enc->GetPMesa()!= -1 &&
+                $enc->GetPMozo()<= 5 && $enc->GetPMozo()!= -1 
+                && $enc->GetPRestaurant()<= 5 && $enc->GetPRestaurant() != -1){
+                    array_push($aux, $enc);
+                    echo "- ".$enc->GetComentario()."\n";
+
+            }
+        }
+        return $aux;
     }
 }
 ?>
